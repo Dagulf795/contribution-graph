@@ -1,4 +1,4 @@
-**Contribution Graph** shows you Roam activity like a GitHub contribution graph.
+**Contribution Graph** shows your Roam Research activity like a GitHub contribution graph.
 Days with no created blocks are white, and days with >=50 created blocks are dark green.
 
 ## acknowledgements
