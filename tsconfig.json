@@ -2,7 +2,7 @@
   "compilerOptions": {
     "jsx": "react",
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
-    "lib": ["ESNext", "WebWorker", "DOM"]
+    "lib": ["ESNext", "WebWorker", "DOM"],
   },
   "extends": "./node_modules/roamjs-scripts/default.tsconfig.json",
   "include": ["src", "node_modules/roamjs-components/types"]
