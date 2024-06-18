@@ -5,16 +5,19 @@ import styles from "../styles/cg-button.module.css";
 import { manipulateJson, generateContributionGraphSVG, splitSVGs, combineSVGs } from "../services/utils";
 import { TimestampResult } from "../types/index";
 
+interface CGButtonProps {
+  modalOpen: boolean;
+  toggleModal: () => void;
+}
 
-const SPButton: React.FC = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+const CGButton: React.FC<CGButtonProps> = ({ modalOpen, toggleModal }) => {
   const [combinedSvg, setCombinedSvg] = useState('');
   const [dialogSize, setDialogSize] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
   const svgContainerRef = useRef<HTMLDivElement>(null);
 
   const closeModal = useCallback(() => {
-    setModalOpen(false);
-  }, []);
+    toggleModal();
+  }, [toggleModal]);
 
   useEffect(() => {
     const generateSVG = async () => {
@@ -36,10 +39,10 @@ const SPButton: React.FC = () => {
         const width = svgElement.clientWidth;
         const height = svgElement.clientHeight;
         setDialogSize({ width: width + 40, height: height + 60 }); // Add some padding
-        setModalOpen(true); // Open the modal after setting the size
+        toggleModal(); // Open the modal after setting the size
       }
     }
-  }, [combinedSvg]);
+  }, [combinedSvg, toggleModal]);
 
 
   return (
@@ -75,4 +78,4 @@ const SPButton: React.FC = () => {
   );
 };
 
-export default SPButton;
+export default CGButton;

@@ -67,7 +67,25 @@ export const manipulateJson = (data: number[][]): Record<string, { done: number;
     const regex = /<svg[^>]*>[\s\S]*?<\/svg>/g;
     let match;
     while ((match = regex.exec(svgString)) !== null) {
-      svgArray.push(match[0]);
+      // add functionality to add year to each contribution graph svg
+
+      let svgFragment = match[0];
+
+      // Extract the year from the first rect element's data-date attribute
+      const yearMatch = svgFragment.match(/data-date="(\d{4})-\d{2}-\d{2}"/);
+      if (yearMatch) {
+          const year = yearMatch[1];
+          
+          // Create the year text element
+          const yearText = `
+          <text font-family="Helvetica" font-size="10" x="0" y="9">
+              <tspan dy="0" x="0">${year}</tspan>
+          </text>`;
+          
+          // Insert the year text element right before the first <text> element in the SVGs
+          svgFragment = svgFragment.replace(/<svg[^>]*>/, `$&${yearText}`);
+      }
+      svgArray.push(svgFragment);
     }
     return svgArray;
   };
